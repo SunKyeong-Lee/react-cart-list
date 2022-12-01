@@ -1,28 +1,29 @@
 .cartlist-wrap {
-  display: flex;
   margin: 20px;
-  gap: 50px;
-  justify-content: center;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding: 20px 0;
 }
 .item-box {
   display: flex;
+  justify-content: center;
   text-align: left;
+  gap: 80px;
+  padding: 10px;
 }
 .item-box div:first-child{
   width: 100px;
   height: 100px;
   background-color: lightgray;
-  margin-right: 10px;
+  margin-right: -50px;
 }
 .cartlist-wrap input {
   width: 50px;
   height: 1rem;
   text-align: center;
 }
-/*
 .cartlist-wrap input::-webkit-inner-spin-button {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
 }
-*/
