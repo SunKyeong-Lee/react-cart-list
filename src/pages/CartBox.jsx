@@ -1,8 +1,16 @@
 import "../css/cartStyle.css";
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
+// 리덕스 테스트
+import { inputCart, amountIncrease } from "../redux/slice/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const CartBox = () => {
+  // 리덕스 테스트
+  const count = useSelector((state) => state.cartlist.id);
+  const cartitem = useSelector((state) => state.cartlist.cart);
+  const dispatch = useDispatch();
+
   // 임시데이터 - 상품리스트(json)
   const [product, setProduct] = useState([
     {
@@ -106,6 +114,11 @@ const CartBox = () => {
 
   return (
     <div>
+      {/** 리덕스 툴킷, 펄시스트 테스트 */}
+      <h1>{count}</h1>
+      <button onClick={() => {dispatch(amountIncrease());}}> +1 </button>
+      <button onClick={() => {dispatch(inputCart());}}> 장바구니 담기 </button>
+
       <h1>장바구니</h1>
       <div>상품정보 ㅣ 사이즈 ㅣ 구매수량 ㅣ 상품금액</div>
       {cartlist.length == 0 ? (
