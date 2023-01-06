@@ -4,17 +4,25 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import productData from "../data/productList.json";
 
+import productData from "../data/productList.json";
 import styled from "styled-components";
 import CheckIcon from '@mui/icons-material/Check';
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { inputCart } from "../redux/slice/cartSlice";
 
 const Product = () => {
   const [productList, setProductList] = useState(productData.productList);
-  const [show, setShow] = useState(false);
+  const cartlist = useSelector((state) => state.cartlist);
+  const dispatch = useDispatch();
+  // const [show, setShow] = useState(false);
 
   // 장바구니에 담으면 체크표시와 함께 버튼 disable 처리 - onclick
+  // 장바구니에 해당 상품 아이디가 있을 때 체크표시 보이게
+  const onclick = (productId) => {
+    dispatch(inputCart(productId));
+  }
 
   return (
     <div className="product-box">
@@ -22,7 +30,6 @@ const Product = () => {
         {productList.map((product) => (
           <Card key={product.productId}>
             <CardMedia
-              sx={{ height: 140 }}
               image={require("../image/" + product.thumbnail)}
               title={product.productName}
             />
@@ -67,4 +74,9 @@ const CardContainer = styled.div`
       width: 1rem;
     }
   }
+  .hidden {
+    display: none;
+  }
 `;
+
+// react-responsive - 미디어쿼리
