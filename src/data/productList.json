@@ -1,0 +1,23 @@
+{
+  "productList" : [
+    {
+      "productId" : 1,
+      "productName" : "CAMINO",
+      "thumbnail" : "gummies.jpg",
+      "explain": "fruit gummies"
+    },
+    {
+      "productId" : 2,
+      "productName" : "TULSI",
+      "thumbnail" : "teabag.jpg",
+      "explain": "pure darjeeling tea bag"
+    },
+    {
+      "productId" : 3,
+      "productName" : "MATCHA",
+      "thumbnail" : "matcha.jpg",
+      "explain": "matcha undiluted"
+    }
+  ] 
+  
+}
