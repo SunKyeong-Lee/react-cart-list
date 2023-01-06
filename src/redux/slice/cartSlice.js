@@ -1,8 +1,8 @@
-// 장바구니 리스트 관리
-// 리덕스 툴킷
-// 리덕스 펄시스트 사용시 수정 사항 없음
+// 장바구니 (리덕스 툴킷)
 
 import { createSlice } from "@reduxjs/toolkit";
+
+let cartId = 0;
 
 // 초기값
 const initialState = {

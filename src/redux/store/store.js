@@ -1,7 +1,7 @@
 /** redux-persist : 로컬/세션 스토리지에 저장해 데이터 유지 */
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // 로컬스토리지에 저장
-import storageSession from "redux-persist/lib/storage/session"; // 세션스토리지에 저장
+import storage from "redux-persist/lib/storage"; // 로컬스토리지
+import storageSession from "redux-persist/lib/storage/session"; // 세션스토리지
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
@@ -9,6 +9,7 @@ import cartSliceReducer from "../slice/cartSlice";
 
 const reducers = combineReducers({
   cartlist: cartSliceReducer,
+  // ...
 });
 
 const persistConfig = {
