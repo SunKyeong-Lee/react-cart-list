@@ -33,7 +33,7 @@ const MyNavbar = styled(Navbar)`
     }
     &.active {
       color: white;
-      font-weight: 500;
+      font-weight: 700;
     }
   }
 `;
