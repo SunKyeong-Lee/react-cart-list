@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux"; 
 // store.js에서 작성한 값을 가져옴
 import store from "./redux/store/store";
-
+// redux-persist
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 

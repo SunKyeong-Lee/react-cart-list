@@ -7,50 +7,65 @@ import Typography from "@mui/material/Typography";
 
 import productData from "../data/productList.json";
 import styled from "styled-components";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { inputCart } from "../redux/slice/cartSlice";
+import { useRef } from "react";
 
 const Product = () => {
   const [productList, setProductList] = useState(productData.productList);
   const cartlist = useSelector((state) => state.cartlist);
   const dispatch = useDispatch();
-  // const [show, setShow] = useState(false);
+  const buttonRef = useRef();
 
-  // 장바구니에 담으면 체크표시와 함께 버튼 disable 처리 - onclick
-  // 장바구니에 해당 상품 아이디가 있을 때 체크표시 보이게
-  const onclick = (productId) => {
-    dispatch(inputCart(productId));
-  }
+  const inputCartHandle = (product) => {
+    const newItem = {
+      productId: product.productId,
+      productName: product.productName,
+      quantity: 1,
+      totalPay: product.price,
+    };
+    dispatch(inputCart(newItem));
+  };
+
+  const checkItem = (productId) => {
+    return cartlist.find((el) => el.productId === productId);
+  };
 
   return (
-    <div className="product-box">
-      <CardContainer>
-        {productList.map((product) => (
-          <Card key={product.productId}>
-            <CardMedia
-              image={require("../image/" + product.thumbnail)}
-              title={product.productName}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                {product.productName}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {product.explain}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <CheckIcon />
-              <Button size="small" color="secondary">
-                장바구니 담기
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
-      </CardContainer>
-    </div>
+    <CardContainer>
+      {productList.map((product) => (
+        <Card key={product.productId}>
+          <CardMedia
+            image={require("../image/" + product.thumbnail)}
+            title={product.productName}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="div">
+              <div>{product.productName}</div>
+              <div>₩{product.price.toLocaleString("kr")}</div>
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {product.explain}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button
+              size="small"
+              color="secondary"
+              ref={buttonRef}
+              onClick={() => {
+                inputCartHandle(product);
+              }}
+              disabled={checkItem(product.productId) ? true : false}
+            >
+              {checkItem(product.productId) ? <CheckIcon /> : "장바구니 담기"}
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
+    </CardContainer>
   );
 };
 
@@ -59,23 +74,28 @@ export default Product;
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 2rem 0.5rem;
+  padding: 2rem;
   .MuiPaper-root {
     width: 340px;
     min-width: 200px;
     margin: 1rem;
+  }
+  .MuiTypography-h6 {
+    display: flex;
+    justify-content: space-between;
+    > div:last-child {
+      margin-left: 2rem;
+    }
   }
   .MuiCardMedia-root {
     height: 200px;
   }
   .MuiCardActions-root {
     justify-content: flex-end;
-    svg {
-      width: 1rem;
+    button:disabled {
+      background-color: #6f42c1;
+      color: #ffffff;
     }
-  }
-  .hidden {
-    display: none;
   }
 `;
 

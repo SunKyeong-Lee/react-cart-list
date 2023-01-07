@@ -4,19 +4,22 @@
       "productId" : 1,
       "productName" : "CAMINO",
       "thumbnail" : "gummies.jpg",
-      "explain": "fruit gummies"
+      "explain": "fruit gummies",
+      "price": 1800
     },
     {
       "productId" : 2,
       "productName" : "TULSI",
       "thumbnail" : "teabag.jpg",
-      "explain": "pure darjeeling tea bag"
+      "explain": "pure darjeeling tea bag",
+      "price": 19500
     },
     {
       "productId" : 3,
       "productName" : "MATCHA",
       "thumbnail" : "matcha.jpg",
-      "explain": "matcha undiluted"
+      "explain": "matcha undiluted base",
+      "price": 17900
     }
   ] 
   
