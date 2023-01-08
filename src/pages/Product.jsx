@@ -11,24 +11,23 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { inputCart } from "../redux/slice/cartSlice";
-import { useRef } from "react";
 
 const Product = () => {
   const [productList, setProductList] = useState(productData.productList);
-  const cartlist = useSelector((state) => state.cartlist);
+  const cartlist = useSelector((state) => state.cartlist.cartlist);
   const dispatch = useDispatch();
-  const buttonRef = useRef();
 
+  /** 장바구니에 담기 */
   const inputCartHandle = (product) => {
-    const newItem = {
-      productId: product.productId,
-      productName: product.productName,
-      quantity: 1,
-      totalPay: product.price,
-    };
-    dispatch(inputCart(newItem));
+    dispatch(
+      inputCart({
+        productId: product.productId,
+        productPrice: product.price,
+      })
+    );
   };
 
+  /** 장바구니에 해당 상품이 담겼는지 확인 */
   const checkItem = (productId) => {
     return cartlist.find((el) => el.productId === productId);
   };
@@ -54,7 +53,6 @@ const Product = () => {
             <Button
               size="small"
               color="secondary"
-              ref={buttonRef}
               onClick={() => {
                 inputCartHandle(product);
               }}
@@ -77,7 +75,7 @@ const CardContainer = styled.div`
   padding: 2rem;
   .MuiPaper-root {
     width: 340px;
-    min-width: 200px;
+    min-width: 280px;
     margin: 1rem;
   }
   .MuiTypography-h6 {
@@ -97,6 +95,22 @@ const CardContainer = styled.div`
       color: #ffffff;
     }
   }
-`;
 
-// react-responsive - 미디어쿼리
+  @media screen and (max-width: 991px) {
+    flex-direction: column;
+    align-items: center;
+    .MuiPaper-root {
+      width: 90%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .MuiPaper-root {
+      width: 100%;
+      margin: 0;
+      margin-bottom: 1rem;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+`;

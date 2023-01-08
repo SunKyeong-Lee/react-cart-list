@@ -22,7 +22,7 @@ const NavbarComp = () => {
 export default NavbarComp;
 
 const MyNavbar = styled(Navbar)`
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 2rem;
   a {
     text-decoration: none;
     color: #e2e2e2;

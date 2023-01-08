@@ -2,12 +2,14 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-let cartId = 0;
-const MAX_QUANTITY = 100;
 const MIN_QUANTITY = 1;
+const MAX_QUANTITY = 100;
 
 // 초기값
-const initialState = [];
+const initialState = {
+  cartId: 0,
+  cartlist: [],
+};
 
 const cartSlice = createSlice({
   name: "cartlist",
@@ -15,17 +17,72 @@ const cartSlice = createSlice({
   reducers: {
     // 장바구니에 담기
     inputCart: (state, action) => {
-      const newCartItem = { ...action.payload, cartId: cartId };
-      cartId++;
-      const newCartArray = state.push(newCartItem);
-      state = newCartArray;
+      const newCartItem = {
+        cartId: state.cartId,
+        productId: action.payload.productId,
+        quantity: 1,
+        totalPay: action.payload.productPrice,
+      };
+      state.cartId++;
+      const newCartArray = state.cartlist.concat(newCartItem);
+      state.cartlist = newCartArray;
     },
-    // 장바구니 상품별 수량 : 1증가, 1감소, 직접 입력 (수량 최소 1, 최대 100)
-    decreaseQauntity: (state, action) => {},
-    increaseQauntity: (state, action) => {},
-    inputQauntity: (state, action) => {},
-    deleteItem: (state, action) => {},
-    deleteAll: (state, action) => {},
+    // 장바구니 상품별 수량 : 1증가, 1감소, 직접입력 (수량 최소 1, 최대 100)
+    decreaseQauntity: (state, action) => {
+      const newCartArray = state.cartlist.map((item) =>
+        item.cartId === action.payload.cartId && item.quantity > MIN_QUANTITY
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPay: action.payload.productPrice * (item.quantity - 1),
+            }
+          : item
+      );
+      state.cartlist = newCartArray;
+    },
+    increaseQauntity: (state, action) => {
+      const newCartArray = state.cartlist.map((item) =>
+        item.cartId === action.payload.cartId && item.quantity < MAX_QUANTITY
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPay: action.payload.productPrice * (item.quantity + 1),
+            }
+          : item
+      );
+      state.cartlist = newCartArray;
+    },
+    inputQauntity: (state, action) => {
+      const newQuantity = () => {
+        if (action.payload.value < MIN_QUANTITY) {
+          return 1;
+        } else if (action.payload.value > MAX_QUANTITY) {
+          return 999;
+        } else {
+          return parseInt(action.payload.value);
+        }
+      };
+      const newCartArray = state.cartlist.map((item) =>
+        item.cartId === action.payload.cartId
+          ? {
+              ...item,
+              quantity: newQuantity(),
+              totalPay: action.payload.productPrice * newQuantity(),
+            }
+          : item
+      );
+      state.cartlist = newCartArray;
+    },
+    // 장바구니 아이템 삭제
+    deleteItem: (state, action) => {
+      const newCartArray = state.cartlist.filter(
+        (item) => item.cartId != action.payload
+      );
+      state.cartlist = newCartArray;
+    },
+    clearCart: (state) => {
+      state.cartlist = [];
+    },
   },
 });
 
@@ -36,7 +93,7 @@ export const {
   increaseQauntity,
   inputQauntity,
   deleteItem,
-  deleteAll,
+  clearCart,
 } = cartSlice.actions;
 
 // 디스패치를 따로 내보내줌
