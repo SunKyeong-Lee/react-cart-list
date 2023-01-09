@@ -5,7 +5,7 @@
 
 ##### 2. 사용 기술 및 라이브러리
 - HTML, CSS, JS
-- React
+- React, React Router
 - React Redux Toolkit, Redux-Persist
 - react-reponsive
 - MUI
