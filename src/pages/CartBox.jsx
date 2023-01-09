@@ -155,9 +155,20 @@ const MyContainer = styled.div`
   }
 
   @media screen and (max-width: 767px) {
+    padding: 1rem;
     .MuiPaper-root {
+      &:first-child {
+        padding: 1rem;
+        > div {
+          padding: 0 0 1rem;
+        }
+        > ul {
+          padding: 0;
+        }
+      }
       &:last-child {
         flex-direction: column;
+        padding: 1rem;
         div {
           width: 100%;
           display: flex;

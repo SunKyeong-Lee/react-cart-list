@@ -106,11 +106,6 @@ const CardContainer = styled.div`
   @media screen and (max-width: 767px) {
     .MuiPaper-root {
       width: 100%;
-      margin: 0;
-      margin-bottom: 1rem;
-      &:last-child {
-        margin: 0;
-      }
     }
   }
 `;
