@@ -34,6 +34,12 @@ const CartBox = () => {
     }, 0);
   };
 
+  /** 장바구니 아이템 전체 삭제 */
+  const handleDeleteAll = (cartId) => {
+    dispatch(clearCart());
+    setCheckItems([]);
+  };
+
   useEffect(() => {
     cartlist.length === 0 && setDeliveryPay(0);
   }, [cartlist.length]);
@@ -57,9 +63,7 @@ const CartBox = () => {
           <Button
             variant="outlined"
             color="secondary"
-            onClick={() => {
-              dispatch(clearCart());
-            }}
+            onClick={handleDeleteAll}
           >
             전체 삭제
           </Button>

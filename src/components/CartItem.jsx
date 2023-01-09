@@ -58,6 +58,12 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
     );
   };
 
+  /** 장바구니 아이템 개별 삭제 */
+  const handleDelete = (cartId) => {
+    dispatch(deleteItem(cartId));
+    setCheckItems(checkItems.filter((el) => el != cartId));
+  };
+
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
     setTotalPay(cartItem.totalPay);
@@ -103,7 +109,7 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
           <div>{totalPay.toLocaleString("kr")}</div>
           <IconButton
             onClick={() => {
-              dispatch(deleteItem(cartItem.cartId));
+              handleDelete(cartItem.cartId);
             }}
           >
             <DeleteIcon />
