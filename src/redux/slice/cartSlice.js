@@ -55,9 +55,9 @@ const cartSlice = createSlice({
     inputQauntity: (state, action) => {
       const newQuantity = () => {
         if (action.payload.value < MIN_QUANTITY) {
-          return 1;
+          return MIN_QUANTITY;
         } else if (action.payload.value > MAX_QUANTITY) {
-          return 999;
+          return MAX_QUANTITY;
         } else {
           return parseInt(action.payload.value);
         }
