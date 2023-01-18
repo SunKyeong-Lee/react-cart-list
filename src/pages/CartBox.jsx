@@ -35,7 +35,7 @@ const CartBox = () => {
   };
 
   /** 장바구니 아이템 전체 삭제 */
-  const handleDeleteAll = (cartId) => {
+  const handleDeleteAll = () => {
     dispatch(clearCart());
     setCheckItems([]);
   };

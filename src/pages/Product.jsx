@@ -10,7 +10,7 @@ import styled from "styled-components";
 import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { inputCart } from "../redux/slice/cartSlice";
+import { deleteItem, inputCart } from "../redux/slice/cartSlice";
 
 const Product = () => {
   const [productList, setProductList] = useState(productData.productList);
@@ -19,12 +19,17 @@ const Product = () => {
 
   /** 장바구니에 담기 */
   const inputCartHandle = (product) => {
-    dispatch(
-      inputCart({
-        productId: product.productId,
-        productPrice: product.price,
-      })
-    );
+    const isCheck = checkItem(product.productId);
+    if (!isCheck) {
+      dispatch(
+        inputCart({
+          productId: product.productId,
+          productPrice: product.price,
+        })
+      );
+    } else {
+      dispatch(deleteItem(isCheck.cartId));
+    }
   };
 
   /** 장바구니에 해당 상품이 담겼는지 확인 */
@@ -52,11 +57,11 @@ const Product = () => {
           <CardActions>
             <Button
               size="small"
+              variant={checkItem(product.productId) ? "contained" : "text"}
               color="secondary"
               onClick={() => {
                 inputCartHandle(product);
               }}
-              disabled={checkItem(product.productId) ? true : false}
             >
               {checkItem(product.productId) ? <CheckIcon /> : "장바구니 담기"}
             </Button>
@@ -90,10 +95,6 @@ const CardContainer = styled.div`
   }
   .MuiCardActions-root {
     justify-content: flex-end;
-    button:disabled {
-      background-color: #6f42c1;
-      color: #ffffff;
-    }
   }
 
   @media screen and (max-width: 991px) {

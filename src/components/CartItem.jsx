@@ -53,7 +53,7 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
       inputQauntity({
         cartId: cartItem.cartId,
         productPrice: findProduct.price,
-        value: e.target.value,
+        value: parseInt(e.target.value),
       })
     );
   };
