@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Mobile, Default } from "../modules/MediaQuery";
 
 import productData from "../data/productList.json";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import { useDispatch } from "react-redux";
 import {
   decreaseQauntity,
@@ -23,6 +23,8 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
   const dispatch = useDispatch();
   const [totalPay, setTotalPay] = useState(cartItem.totalPay);
   const inputRef = useRef();
+  const MIN_QUANTITY = 1;
+  const MAX_QUANTITY = 100;
 
   /** 체크박스 개별 선택 */
   const handleSingleCheck = (checked, cartId) => {
@@ -33,27 +35,41 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
 
   /** 구매수량 */
   const onDecrease = () => {
-    dispatch(
-      decreaseQauntity({
-        cartId: cartItem.cartId,
-        productPrice: findProduct.price,
-      })
-    );
+    cartItem.quantity > MIN_QUANTITY &&
+      dispatch(
+        decreaseQauntity({
+          cartId: cartItem.cartId,
+          productPrice: findProduct.price,
+        })
+      );
   };
   const onIncrease = () => {
-    dispatch(
-      increaseQauntity({
-        cartId: cartItem.cartId,
-        productPrice: findProduct.price,
-      })
-    );
+    cartItem.quantity < MAX_QUANTITY &&
+      dispatch(
+        increaseQauntity({
+          cartId: cartItem.cartId,
+          productPrice: findProduct.price,
+        })
+      );
   };
   const onInput = (e) => {
+    const value = parseInt(e.target.value);
+    let inputQuan = 0;
+    if (value < MIN_QUANTITY) {
+      inputQuan = MIN_QUANTITY;
+      inputRef.current.value = MIN_QUANTITY;
+    } else if (value > MAX_QUANTITY) {
+      inputQuan = MAX_QUANTITY;
+      inputRef.current.value = MAX_QUANTITY;
+    } else {
+      inputQuan = value;
+      inputRef.current.value = value;
+    }
     dispatch(
       inputQauntity({
         cartId: cartItem.cartId,
         productPrice: findProduct.price,
-        value: parseInt(e.target.value),
+        quantity: inputQuan,
       })
     );
   };
@@ -165,7 +181,7 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
   );
 };
 
-export default CartItem;
+export default memo(CartItem);
 
 const DefaultList = styled.li`
   display: grid;

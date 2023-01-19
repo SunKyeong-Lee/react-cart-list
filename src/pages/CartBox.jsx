@@ -40,9 +40,20 @@ const CartBox = () => {
     setCheckItems([]);
   };
 
+  const handleOrder = () => {
+    if (cartlist.length === 0) {
+      alert("장바구니가 비어있습니다.");
+    } else if (checkItems.length === 0) {
+      alert("선택된 상품이 없습니다.");
+    } else {
+      alert("주문이 완료되었습니다.");
+    }
+  };
+
   useEffect(() => {
     cartlist.length === 0 && setDeliveryPay(0);
-  }, [cartlist.length]);
+    handleAllCheck(true);
+  }, []);
 
   return (
     <MyContainer>
@@ -98,7 +109,7 @@ const CartBox = () => {
           <span>Total</span>
           <span>₩{(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}</span>
         </div>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" onClick={handleOrder}>
           주문하기
         </Button>
       </Paper>
