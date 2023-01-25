@@ -55,7 +55,9 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
   const onInput = (e) => {
     const value = parseInt(e.target.value);
     let inputQuan = 0;
-    if (value < MIN_QUANTITY) {
+    if (!e.target.value) {
+      inputQuan = 0;
+    } else if (value < MIN_QUANTITY) {
       inputQuan = MIN_QUANTITY;
       inputRef.current.value = MIN_QUANTITY;
     } else if (value > MAX_QUANTITY) {
@@ -63,7 +65,6 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
       inputRef.current.value = MAX_QUANTITY;
     } else {
       inputQuan = value;
-      inputRef.current.value = value;
     }
     dispatch(
       inputQauntity({
