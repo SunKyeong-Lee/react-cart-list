@@ -53,7 +53,7 @@ const CartBox = () => {
   useEffect(() => {
     cartlist.length === 0 && setDeliveryPay(0);
     handleAllCheck(true);
-  }, []);
+  }, [cartlist.length]);
 
   return (
     <MyContainer>

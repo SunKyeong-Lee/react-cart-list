@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Mobile, Default } from "../modules/MediaQuery";
 
 import productData from "../data/productList.json";
-import { useEffect, useRef, useState, memo } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   decreaseQauntity,
@@ -181,7 +181,7 @@ const CartItem = ({ cartItem, checkItems, setCheckItems }) => {
   );
 };
 
-export default memo(CartItem);
+export default CartItem;
 
 const DefaultList = styled.li`
   display: grid;
