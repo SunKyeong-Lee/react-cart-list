@@ -11,5 +11,5 @@
 - MUI
 - styled-components
 
-<img src="https://user-images.githubusercontent.com/109590318/211335082-b56a75f6-15ab-439f-9376-cd8876608963.gif" />
-<img src="https://user-images.githubusercontent.com/109590318/211335532-9a5a370a-66af-4b00-a820-58d82b3789f3.gif" />
+<img src="https://user-images.githubusercontent.com/109590318/214492218-17d96e9f-cd49-46fe-bb6d-b05a49aedca2.gif" />
+<img src="https://user-images.githubusercontent.com/109590318/214492368-5e1eec66-ca99-4c65-98f5-d1f9ac36ac3e.gif" />
